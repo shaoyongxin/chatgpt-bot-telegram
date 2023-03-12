@@ -22,14 +22,19 @@ const getImage = async (text) => {
 
 const getChat = async (text) => {
   try {
-    const response = await openai.createCompletion({
+    const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      prompt: text,
-      temperature: 0,
+      messages: [
+        {
+          role: 'user',
+          content: text,
+        },
+      ],
+      temperature: 0.2,
       max_tokens: 1024,
     });
 
-    return response.data.choices[0].text;
+    return response.data.choices[0].message.content;
   } catch (error) {
     console.log(error);
   }
