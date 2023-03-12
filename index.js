@@ -26,10 +26,10 @@ bot.on(message('text'), async (ctx) => {
       .replace('画', '')
       .replace('生成', '')
       .replace('创建', '');
+    ctx.sendChatAction('upload_photo');
     const res = await getImage(imageText);
 
     if (res) {
-      ctx.sendChatAction('upload_photo');
       ctx.replyWithPhoto(res);
     }
   } else {
