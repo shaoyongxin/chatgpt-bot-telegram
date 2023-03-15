@@ -43,7 +43,7 @@ const getChat = async (text) => {
 };
 
 const clearSession = () => {
-  chatMessages = [];
+  chatMessages.splice(0, chatMessages.length);
 };
 
 module.exports = { openai, getImage, getChat, clearSession };
