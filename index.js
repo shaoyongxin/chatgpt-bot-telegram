@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Configuration, OpenAIApi } = require('openai');
-const { getImage, getChat } = require('./Helper/functions');
+const { getImage, getChat, clearSession } = require('./Helper/functions');
 const { Telegraf } = require('telegraf');
 const { message } = require('telegraf/filters');
 
@@ -39,6 +39,11 @@ bot.on(message('text'), async (ctx) => {
       ctx.reply(res);
     }
   }
+});
+
+bot.command('clearSession', (ctx) => {
+  clearSession();
+  ctx.reply('会话已清空');
 });
 
 bot.launch();

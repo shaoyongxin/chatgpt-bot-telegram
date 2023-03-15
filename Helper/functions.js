@@ -41,4 +41,9 @@ const getChat = async (text) => {
     console.log(error);
   }
 };
-module.exports = { openai, getImage, getChat };
+
+const clearSession = () => {
+  chatMessages = [];
+};
+
+module.exports = { openai, getImage, getChat, clearSession };
