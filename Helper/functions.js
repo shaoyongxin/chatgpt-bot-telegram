@@ -6,12 +6,14 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+const chatMessages = [];
+
 const getImage = async (text) => {
   try {
     const response = await openai.createImage({
       prompt: text,
       n: 1,
-      size: '1024x1024',
+      size: '256x256',
     });
 
     return response.data.data[0].url;
@@ -21,20 +23,20 @@ const getImage = async (text) => {
 };
 
 const getChat = async (text) => {
+  chatMessages.push({
+    role: 'user',
+    content: text,
+  });
   try {
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'user',
-          content: text,
-        },
-      ],
+      messages: chatMessages,
       temperature: 0.2,
       max_tokens: 1024,
     });
-
-    return response.data.choices[0].message.content;
+    const content = response.data.choices[0].message.content;
+    chatMessages.push({ role: 'assistant', content });
+    return content;
   } catch (error) {
     console.log(error);
   }
