@@ -41,7 +41,7 @@ bot.on(message('text'), async (ctx) => {
   }
 });
 
-bot.command('clearSession', (ctx) => {
+bot.command('clearsession', (ctx) => {
   clearSession();
   ctx.reply('会话已清空');
 });
