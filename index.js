@@ -17,8 +17,16 @@ bot.help((ctx) => {
   ctx.reply('如果需要创建图片，则在开头输入画、生成或创建');
 });
 
+bot.command('clearsession', (ctx) => {
+  clearSession();
+  ctx.reply('会话已清空');
+});
+
 bot.on(message('text'), async (ctx) => {
   const text = ctx.message.text;
+  if (text === '/clearsession') {
+    return;
+  }
   const isImage =
     text.startsWith('画') || text.startsWith('生成') || text.startsWith('创建');
   if (isImage) {
@@ -39,11 +47,6 @@ bot.on(message('text'), async (ctx) => {
       ctx.reply(res);
     }
   }
-});
-
-bot.command('clearsession', (ctx) => {
-  clearSession();
-  ctx.reply('会话已清空');
 });
 
 bot.launch();
